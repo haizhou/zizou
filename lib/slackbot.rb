@@ -48,7 +48,7 @@ class SlackBot
 
   # takes an username (with Slack's format) and extracts the user_id
   def extract_user_id(username)
-    username[1..-1]
+    username[2..-2]
   end
 
   def create_game_with_players(player1, player2, team1, team2, score1, score2)
