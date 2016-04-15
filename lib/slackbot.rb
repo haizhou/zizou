@@ -48,7 +48,7 @@ class SlackBot
 
   # takes an username (with Slack's format) and extracts the user_id
   def extract_user_id(username)
-    username[2..-2]
+    username[1..-1]
   end
 
   def create_game_with_players(player1, player2, team1, team2, score1, score2)
@@ -187,8 +187,8 @@ class SlackBot
       end
     end
 
-    player1 = Player.find_by(username: @user_id)
-    player2 = Player.find_by(username: other_user_id)
+    player1 = Player.find_or_create_by(username: @user_id)
+    player2 = Player.find_or_create_by(username: other_user_id)
 
     score = player1.compare(player2)
 
@@ -213,7 +213,7 @@ class SlackBot
 
   def hear_stats(player)
     player_id = extract_user_id(player)
-    player = Player.find_by(username: player_id)
+    player = Player.find_or_create_by(username: player_id)
 
     return "Joueur introuvable" if player.nil?
 
